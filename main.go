@@ -31,7 +31,7 @@ func main() {
 		//TODO filter list by name
 		//TODO filter by view type
 		//TODO get more information on bucket
-		Print_bucket(Create_bucket(bucket.Name, bucket.CreationDate))
+		Print_bucket(Create_bucket(bucket.Name, bucket.CreationDate, region, client))
 	}
 
 }

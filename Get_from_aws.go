@@ -6,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"context"
 	"log"
+	//"fmt"
 )
 
 func Get_buckets_in_region (region string, client *s3.Client ) (*s3.ListBucketsOutput){
@@ -20,4 +21,19 @@ func Get_buckets_in_region (region string, client *s3.Client ) (*s3.ListBucketsO
 	}
 
 	return bucket_list
+}
+
+func Get_number_of_files (region string, bucket_name string, client *s3.Client) int{
+	//Function that will count the number of files in 
+
+	output, err := client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{Bucket: &bucket_name}, func(o *s3.Options) {
+		o.Region = region
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	number_of_files := len(output.Contents)
+
+	return number_of_files
 }

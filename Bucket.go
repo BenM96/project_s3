@@ -3,6 +3,8 @@ package main
 import (
     "time"
     "fmt"
+    "github.com/aws/aws-sdk-go-v2/service/s3"
+
 )
 
 type Bucket struct {
@@ -15,11 +17,11 @@ type Bucket struct {
 
 }
 
-func Create_bucket(name *string, creation_date *time.Time) *Bucket {
+func Create_bucket(name *string, creation_date *time.Time, region string, client *s3.Client) *Bucket {
 
     NewBucket := Bucket{ Name: *name, Creation_date: creation_date}
 
-    Complete_Bucket(&NewBucket)
+    Complete_Bucket(&NewBucket, region, client)
 
     return &NewBucket
 }
@@ -29,14 +31,14 @@ func Print_bucket(bucket *Bucket) {
     fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files)
 }
 
-func Complete_Bucket (bucket *Bucket){
+func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
     //This will collect all of the data other than the name and creation time.
     //Bucket will be eddited in place
 
     
     //bucket.Number_of_files=100
 
-    bucket.Number_of_files = 1
+    bucket.Number_of_files=Get_number_of_files(region, bucket.Name, client)
 
 
 }
