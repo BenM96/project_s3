@@ -18,17 +18,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	client := s3.NewFromConfig(config)
 	
 	//TODO allow getting multiple regions
 	//get list of all buckets in the specified region
 	//The Bucket list will contain the name and creation date of every bucket
-	bucket_list, err := client.ListBuckets(context.TODO(), &s3.ListBucketsInput{}, func(o *s3.Options) {
-		o.Region = region
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	bucket_list := Get_buckets_in_region(region, client)
 
 
 	fmt.Println("buck: ", *bucket_list.Buckets[0].Name, *bucket_list.Buckets[1].Name)
