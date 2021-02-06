@@ -1,7 +1,6 @@
 package main
 
 import(
-	"fmt"
 	"context"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
@@ -21,19 +20,18 @@ func main() {
 
 	client := s3.NewFromConfig(config)
 	
+
 	//TODO allow getting multiple regions
 	//get list of all buckets in the specified region
 	//The Bucket list will contain the name and creation date of every bucket
 	bucket_list := Get_buckets_in_region(region, client)
 
 
-	fmt.Println("buck: ", *bucket_list.Buckets[0].Name, *bucket_list.Buckets[1].Name)
-
 	for _, bucket := range(bucket_list.Buckets){
 		//TODO filter list by name
 		//TODO filter by view type
 		//TODO get more information on bucket
-		fmt.Println(bucket.Name)
+		Print_bucket(Create_bucket(bucket.Name, bucket.CreationDate))
 	}
 
 }
