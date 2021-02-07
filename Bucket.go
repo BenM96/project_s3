@@ -31,7 +31,7 @@ func Create_bucket(name *string, creation_date *time.Time, region string, client
 
 func Print_bucket(bucket *Bucket, byte_display_option string) {
     //TODO imporve this when other information is harvesed
-    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", byte_conversion(bucket.Total_size_of_files, byte_display_option), byte_display_option, " object last modified: ", bucket.Object_last_modified, "storage types: ", bucket.Storage_types,  " cost: ", bucket.Cost)
+    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", byte_conversion(bucket.Total_size_of_files, byte_display_option), byte_display_option, " object last modified: ", bucket.Object_last_modified, "storage types: ", bucket.Storage_types,  " cost US$/Month: ", bucket.Cost)
 }
 
 func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
