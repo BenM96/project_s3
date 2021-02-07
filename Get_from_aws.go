@@ -37,7 +37,7 @@ func Get_bucket_region (name string, client *s3.Client) string {
 	return string(region)
 }
 
-func Get_file_data (region string, bucket_name string, client *s3.Client) (int, int64, time.Time) {
+func Get_file_data (region string, bucket_name string, client *s3.Client) (int, int64, time.Time, []string) {
 	//Function will get information of the files in a bucket and return: number of files, total size of files, last modified date of most recent file
 
 	//Gets list of objects in bucket
@@ -54,19 +54,41 @@ func Get_file_data (region string, bucket_name string, client *s3.Client) (int, 
 	//calculate number of files in a bucket
 	number_of_files := len(*FileList)
 
-	//calculate total size of files in bucket and when a file it was last modified
+	//declare the variables that will be built up as the script runs through every file in the bucket
 	var total_file_size int64 = 0
 	var most_recent_modification_time time.Time
+	var storage_types []string
+
+	//For every file in the bucket
 	for _ , file := range(*FileList){
 		//add file size to total bucket size
 		total_file_size = total_file_size + file.Size
+
+
 
 		//If the current file was eddited after the current most recent modified time then it becomes the most recently modified file
 		if most_recent_modification_time.Before(*(file.LastModified)){
 			most_recent_modification_time=*(file.LastModified)
 		}
+
+		
+
+		//checks if storage type is in the current list of storage_type, if not add it
+		current_file_storage_type := string(file.StorageClass)
+		type_already_exists := false
+		for _, existing_type := range(storage_types){
+			if current_file_storage_type == existing_type{
+				//if the current storage type has already been recorded, note it and break for loop
+				type_already_exists = true
+				break
+			}
+		}
+		//if storage type doesn't already exist add it to the list of storage types
+		if !type_already_exists{
+			storage_types = append(storage_types, current_file_storage_type)
+		}
 	}
 
 
-	return number_of_files, total_file_size, most_recent_modification_time
+	return number_of_files, total_file_size, most_recent_modification_time, storage_types
 }
