@@ -15,6 +15,7 @@ func main() {
 	//variables
 	region := "eu-west-2"
 	byte_display_option := "MB"
+	name_filter_string := ""
 
 	//create a wait group
 	var wait_group sync.WaitGroup
@@ -38,21 +39,29 @@ func main() {
 		//wait for the bucket to be created and printed
 		wait_group.Add(1)
 		//Create the rest of the bucket from the name.
-		go Create_and_display_bucket(bucket.Name, bucket.CreationDate, region, client, byte_display_option, &wait_group)
+		go Create_and_display_bucket(bucket.Name, bucket.CreationDate, region, client, byte_display_option, &wait_group, name_filter_string)
 	}
 
 	wait_group.Wait()
 
 }
 
-func Create_and_display_bucket(name *string, creation_date *time.Time, region string, client *s3.Client, byte_display_option string, wait_group *sync.WaitGroup){
+func Create_and_display_bucket(name *string, creation_date *time.Time, region string, client *s3.Client, byte_display_option string, wait_group *sync.WaitGroup, name_filter_string string){
 
 	//when this fuction exits main fuction can stop waiting 
 	defer wait_group.Done()
+
+
+	//if the name doesn't contain the name_filter_string end the function here
+	if !Name_filter(*name, name_filter_string){return}
+
 
 	//TODO filter list by name
 	//TODO filter by view type
 	//TODO get more information on bucket
 	Complete_Bucket := Create_bucket(name, creation_date, region, client)
+
+	
+
 	Print_bucket(Complete_Bucket, byte_display_option)
 }
