@@ -12,6 +12,7 @@ import(
 func main() {
 	//variables
 	region := "eu-west-2"
+	byte_display_option := "MB"
 
 	//setup client
 	config, err := config.LoadDefaultConfig(context.TODO())
@@ -32,7 +33,8 @@ func main() {
 		//TODO filter list by name
 		//TODO filter by view type
 		//TODO get more information on bucket
-		Print_bucket(Create_bucket(bucket.Name, bucket.CreationDate, region, client))
+		Complete_Bucket := Create_bucket(bucket.Name, bucket.CreationDate, region, client)
+		Print_bucket(Complete_Bucket, byte_display_option)
 	}
 
 	

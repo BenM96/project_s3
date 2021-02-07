@@ -14,7 +14,8 @@ type Bucket struct {
     Number_of_files int
     Total_size_of_files int64
     Object_last_modified time.Time
-    Cost int
+    //cost in in USD per month
+    Cost float64
 
 }
 
@@ -27,9 +28,9 @@ func Create_bucket(name *string, creation_date *time.Time, region string, client
     return &NewBucket
 }
 
-func Print_bucket(bucket *Bucket) {
+func Print_bucket(bucket *Bucket, byte_display_option string) {
     //TODO imporve this when other information is harvesed
-    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", bucket.Total_size_of_files, " object last modified: ", bucket.Object_last_modified, " cost: ", bucket.Cost)
+    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", byte_conversion(bucket.Total_size_of_files, byte_display_option), byte_display_option, " object last modified: ", bucket.Object_last_modified, " cost: ", bucket.Cost)
 }
 
 func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
@@ -42,6 +43,4 @@ func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
 
     //get the cost of the bucket
     bucket.Cost = Get_bucket_cost(bucket.Total_size_of_files)
-
-
 }

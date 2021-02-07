@@ -40,7 +40,7 @@ func Get_bucket_region (name string, client *s3.Client) string {
 func Get_file_data (region string, bucket_name string, client *s3.Client) (int, int64, time.Time) {
 	//Function will get information of the files in a bucket and return: number of files, total size of files, last modified date of most recent file
 
-	//Gets list of files
+	//Gets list of objects in bucket
 	ObjectList, err := client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{Bucket: &bucket_name}, func(o *s3.Options) {
 		o.Region = region
 	})
@@ -48,6 +48,7 @@ func Get_file_data (region string, bucket_name string, client *s3.Client) (int, 
 		log.Fatal(err)
 	}
 	
+	//Get files from the list of objects
 	FileList := &ObjectList.Contents
 
 	//calculate number of files in a bucket
