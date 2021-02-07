@@ -33,7 +33,7 @@ func main() {
 	//The Bucket list will contain the name and creation date of every bucket
 	bucket_list := Get_buckets_in_region(region, client)
 
-
+	//for every bucket
 	for _, bucket := range(bucket_list.Buckets){
 		//wait for the bucket to be created and printed
 		wait_group.Add(1)
