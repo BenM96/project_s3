@@ -7,17 +7,28 @@ import(
 	"log"
 	"sync"
 	"time"
+	"flag"
 	//"fmt"
-	//"github.com/aws/aws-sdk-go-v2/aws"
 )
 
 func main() {
 	//variables
-	region := "eu-west-2"
-	byte_display_option := "MB"
-	name_filter_string := ""
-	storage_type_filter_string := ""
-	region_filter_string := ""
+	region_flag := flag.String("region", "eu-west-2", "The region used to get the initial list of buckets")
+	byte_display_option_flag := flag.String("byte-unit", "MB", "How the number of bytes will be displade. Allowed values are KB, MB or GB")
+	name_filter_string_flag := flag.String("name-filter", "", "Will only return buckets with names that contain the 'name-filter' value")
+	storage_type_filter_string_flag := flag.String("storage-filter", "", "Will only return buckets that have an object with the 'storage-filter' value")
+	region_filter_string_flag := flag.String("reigion-filter", "", "Will only return buckets from the given region")
+
+	
+	//get values for all flags
+	flag.Parse()
+
+	region := *region_flag
+	byte_display_option := *byte_display_option_flag
+	name_filter_string := *name_filter_string_flag
+	storage_type_filter_string := *storage_type_filter_string_flag
+	region_filter_string := *region_filter_string_flag
+
 
 	//create a wait group
 	var wait_group sync.WaitGroup
@@ -31,7 +42,6 @@ func main() {
 	client := s3.NewFromConfig(config)
 	
 
-	//TODO allow getting multiple regions
 	//get list of all buckets in the specified region
 	//The Bucket list will contain the name and creation date of every bucket
 	bucket_list := Get_buckets_in_region(region, client)
