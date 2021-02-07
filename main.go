@@ -5,6 +5,7 @@ import(
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"log"
+	//"fmt"
 	//"github.com/aws/aws-sdk-go-v2/aws"
 )
 
@@ -33,5 +34,7 @@ func main() {
 		//TODO get more information on bucket
 		Print_bucket(Create_bucket(bucket.Name, bucket.CreationDate, region, client))
 	}
+
+	
 
 }

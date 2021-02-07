@@ -10,6 +10,7 @@ import (
 type Bucket struct {
     Name string
     Creation_date *time.Time
+    Region string
     Number_of_files int
     Total_size_of_files int64
     Object_last_modified time.Time
@@ -28,17 +29,19 @@ func Create_bucket(name *string, creation_date *time.Time, region string, client
 
 func Print_bucket(bucket *Bucket) {
     //TODO imporve this when other information is harvesed
-    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", bucket.Total_size_of_files, " object last modified: ", bucket.Object_last_modified)
+    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", bucket.Total_size_of_files, " object last modified: ", bucket.Object_last_modified, " cost: ", bucket.Cost)
 }
 
 func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
     //This will collect all of the data other than the name and creation time.
-    //Bucket will be eddited in place
 
-    
-    //bucket.Number_of_files=100
+    bucket.Region = Get_bucket_region(bucket.Name, client)
 
-    bucket.Number_of_files, bucket.Total_size_of_files, bucket.Object_last_modified=Get_file_data(region, bucket.Name, client)
+    //get all of the data relating to the files and edit values
+    bucket.Number_of_files, bucket.Total_size_of_files, bucket.Object_last_modified = Get_file_data(bucket.Region, bucket.Name, client)
+
+    //get the cost of the bucket
+    bucket.Cost = Get_bucket_cost(bucket.Total_size_of_files)
 
 
 }

@@ -24,6 +24,19 @@ func Get_buckets_in_region (region string, client *s3.Client ) (*s3.ListBucketsO
 	return bucket_list
 }
 
+func Get_bucket_region (name string, client *s3.Client) string {
+	location, err := client.GetBucketLocation(context.TODO(), &s3.GetBucketLocationInput{Bucket: &name}, func(o *s3.Options) {
+		o.Region = "eu-west-2"
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	region := location.LocationConstraint
+
+	return string(region)
+}
+
 func Get_file_data (region string, bucket_name string, client *s3.Client) (int, int64, time.Time) {
 	//Function will get information of the files in a bucket and return: number of files, total size of files, last modified date of most recent file
 
