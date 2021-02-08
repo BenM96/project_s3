@@ -2,7 +2,7 @@
 
 ## Installation:
 
-To install the tool download the binary s3.exe. This can be done by clicking this link https://raw.githubusercontent.com/BenM96/project_s3/master/s3.exe
+To install the tool download the binary s3.exe. This can be done by clicking this link [here](https://raw.githubusercontent.com/BenM96/project_s3/master/s3.exe)
 
 ## Prerequisites 
 
