@@ -22,7 +22,7 @@ type Bucket struct {
 }
 
 func Create_bucket(name *string, creation_date *time.Time, region string, client *s3.Client) *Bucket {
-    //creats a bucket from the buckets name and region
+    //creats a bucket from the buckets name
 
     //Make a new item bucket
     NewBucket := Bucket{ Name: *name, Creation_date: creation_date}

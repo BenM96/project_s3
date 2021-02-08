@@ -12,7 +12,7 @@ import(
 
 func main() {
 
-	//get the run options from the user flags. In of type map[string]string
+	//get the run options from the user via flags. In of type map[string]string
 	run_options := Get_run_options()
 
 	//create a wait group
@@ -49,10 +49,10 @@ func main() {
 }
 
 func Create_and_display_bucket(name *string, creation_date *time.Time, client *s3.Client, wait_group *sync.WaitGroup, run_options map[string]string){
-	//This function takes the name of a bucket, generates the rest of the information about the bucket and then prints that inforamtaion
+	//This function takes the name of a bucket, generates the rest of the information about the bucket and then prints that informataion
 	//There are a number of filters that will premeturly end this function if it does not pass the users filter requirments
 
-	//when this fuction exits let the main function know to stop it wainting
+	//when this fuction exits let the main function know to stop it waiting for it
 	defer wait_group.Done()
 	
 	//if the name doesn't contain the name_filter_string end the function here
@@ -72,7 +72,7 @@ func Create_and_display_bucket(name *string, creation_date *time.Time, client *s
 func Get_run_options() map[string]string{
 		//This fuction gathers infromation from flags on the command line and returns them as a map
 		
-		//List of flags. Name, deafult, information
+		//List of flags. Name, deafult value, information
 		region_flag := flag.String("region", "eu-west-2", "The region used to get the initial list of buckets")
 		byte_display_option_flag := flag.String("byte-unit", "MB", "How the number of bytes will be displayed. Allowed values are KB, MB or GB")
 		name_filter_string_flag := flag.String("name-filter", "", "Will only return buckets with names that contain the 'name-filter' value")

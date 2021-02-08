@@ -7,7 +7,7 @@ import (
 
 
 func Get_bucket_cost () float64{
-	//retuns the estimated cost of a bucket.
+	//retuns the cost of a bucket.
 	//TODO Create this function
 	//All methods considard to create this function either:
 	//	1. Assumed some form of infrastuture already inplace (e.g. tagging, Cost Management)

@@ -9,7 +9,7 @@ import (
 )
 
 func Name_filter (name string, filter_string string) bool{
-	//if the filter_string is in the name then return true
+	//if the filter_string is a substring of name then return true
 	if strings.Contains(name, filter_string){
 		return true
 	}else{
