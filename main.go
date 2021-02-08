@@ -30,7 +30,7 @@ func main() {
 
 	//get list of all buckets in the specified region
 	//The Bucket list will contain the name and creation date of every bucket
-	bucket_list := Get_buckets_in_region(run_options["region"], client)
+	bucket_list := Get_all_buckets(run_options["region"], client)
 
 	//for every bucket:
 	for _, bucket := range(bucket_list.Buckets){
@@ -75,7 +75,7 @@ func Get_run_options() map[string]string{
 		region_flag := flag.String("region", "eu-west-2", "The region used to get the initial list of buckets")
 		byte_display_option_flag := flag.String("byte-unit", "MB", "How the number of bytes will be displayed. Allowed values are KB, MB or GB")
 		name_filter_string_flag := flag.String("name-filter", "", "Will only return buckets with names that contain the 'name-filter' value")
-		storage_type_filter_string_flag := flag.String("storage-filter", "", "Will only return buckets that have an object with the 'storage-filter' value")
+		storage_type_filter_string_flag := flag.String("storage-filter", "", "Will only return buckets that have an object with the 'storage-filter' value. Examples of accepted values are STANDARD, DEEP_ARCHIVE or REDUCED_REDUNDANCY")
 		region_filter_string_flag := flag.String("region-filter", "", "Will only return buckets from the given region")
 	
 		
@@ -84,7 +84,7 @@ func Get_run_options() map[string]string{
 		
 		//make a map of all of the run options the use has given
 		run_options := make(map[string]string)
-		
+
 		run_options["region"] = *region_flag
 		run_options["byte_display_option"] = *byte_display_option_flag
 		run_options["name_filter_string"] = *name_filter_string_flag

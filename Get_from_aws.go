@@ -10,9 +10,10 @@ import (
 	//"fmt"
 )
 
-func Get_buckets_in_region (region string, client *s3.Client ) (*s3.ListBucketsOutput){
-	//function send api request to aws to get all buckets in a region
-	//return a pointer to the bucket_list
+func Get_all_buckets (region string, client *s3.Client ) (*s3.ListBucketsOutput){
+	//function sends api request to aws to get all buckets
+	//returns a pointer to the bucket_list
+
 	//api request to aws
 	bucket_list, err := client.ListBuckets(context.TODO(), &s3.ListBucketsInput{}, func(o *s3.Options) {
 		o.Region = region
@@ -24,21 +25,24 @@ func Get_buckets_in_region (region string, client *s3.Client ) (*s3.ListBucketsO
 	return bucket_list
 }
 
-func Get_bucket_region (name string, client *s3.Client) string {
+func Get_bucket_region (name string, client *s3.Client, region string) string {
+	//returns what region the bucket is in
+
+	//api request to aws
 	location, err := client.GetBucketLocation(context.TODO(), &s3.GetBucketLocationInput{Bucket: &name}, func(o *s3.Options) {
-		o.Region = "eu-west-2"
+		o.Region = region
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	region := location.LocationConstraint
+	bucket_region := location.LocationConstraint
 
-	return string(region)
+	return string(bucket_region)
 }
 
 func Get_file_data (region string, bucket_name string, client *s3.Client) (int, int64, time.Time, []string) {
-	//Function will get information of the files in a bucket and return: number of files, total size of files, last modified date of most recent file
+	//Function will get information of the files in a bucket and return: number of files, total size of files, last modified date of most recent file, what storage types are used
 
 	//Gets list of objects in bucket
 	ObjectList, err := client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{Bucket: &bucket_name}, func(o *s3.Options) {
@@ -48,7 +52,7 @@ func Get_file_data (region string, bucket_name string, client *s3.Client) (int, 
 		log.Fatal(err)
 	}
 	
-	//Get files from the list of objects
+	//Get list of files from the list of objects
 	FileList := &ObjectList.Contents
 
 	//calculate number of files in a bucket
@@ -61,9 +65,9 @@ func Get_file_data (region string, bucket_name string, client *s3.Client) (int, 
 
 	//For every file in the bucket
 	for _ , file := range(*FileList){
+
 		//add file size to total bucket size
 		total_file_size = total_file_size + file.Size
-
 
 
 		//If the current file was eddited after the current most recent modified time then it becomes the most recently modified file
@@ -71,14 +75,13 @@ func Get_file_data (region string, bucket_name string, client *s3.Client) (int, 
 			most_recent_modification_time=*(file.LastModified)
 		}
 
-		
 
 		//checks if storage type is in the current list of storage_type, if not add it
 		current_file_storage_type := string(file.StorageClass)
 		type_already_exists := false
 		for _, existing_type := range(storage_types){
 			if current_file_storage_type == existing_type{
-				//if the current storage type has already been recorded, note it and break for loop
+				//if the current storage type has already been recorded, note it and break the for loop
 				type_already_exists = true
 				break
 			}

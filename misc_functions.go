@@ -1,4 +1,4 @@
-//This file comtains miscellaneous functions that are usefull
+//This file comtains miscellaneous functions that dont belong anywhere else
 package main
 
 import (
@@ -20,7 +20,7 @@ func byte_conversion (number_of_bytes int64, output_unit string) int64 {
 		return number_of_bytes/1000000000
 	}
 
-	log.Fatal("Invalid output unit for byte_conversion. Wants KB, MG, GB. received", output_unit)
+	log.Fatal("Invalid output unit for byte_conversion. Wants KB, MG, GB. received: ", output_unit)
 	//will never reach this return
 	return -1
 	
