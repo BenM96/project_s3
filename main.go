@@ -8,7 +8,6 @@ import(
 	"sync"
 	"time"
 	"flag"
-	"fmt"
 )
 
 func main() {
