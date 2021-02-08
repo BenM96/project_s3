@@ -32,6 +32,9 @@ func main() {
 	//The Bucket list will contain the name and creation date of every bucket
 	bucket_list := Get_all_buckets(run_options["region"], client)
 
+	//print the bucket headder
+	Print_bucket_headder(run_options["byte_display_option"])
+
 	//for every bucket:
 	for _, bucket := range(bucket_list.Buckets){
 		//wait for this bucket to be created and printed before finishing the main function

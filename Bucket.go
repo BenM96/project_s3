@@ -34,10 +34,14 @@ func Create_bucket(name *string, creation_date *time.Time, region string, client
     return &NewBucket
 }
 
+func Print_bucket_headder(byte_display_option string){
+    //Prints the headder for the list of buckets
+    fmt.Printf("Name:Creation date:Number of files:Total size of files(%v):Object last modified:Storage types:Cost(US$/Month)\n")
+}
+
 func Print_bucket(bucket *Bucket, byte_display_option string) {
     //Prints all information on the bucket to the commandline
-    //TODO tidy this up
-    fmt.Println( "Name: ", bucket.Name ," Creation date: ", bucket.Creation_date ," number of files: ", bucket.Number_of_files, " Total size of files: ", byte_conversion(bucket.Total_size_of_files, byte_display_option), byte_display_option, " object last modified: ", bucket.Object_last_modified, "storage types: ", bucket.Storage_types,  " cost US$/Month: ", bucket.Cost)
+    fmt.Printf("%v:%v:%v:%v:%v:%v:%v\n", bucket.Name , bucket.Creation_date , bucket.Number_of_files, byte_conversion(bucket.Total_size_of_files, byte_display_option), bucket.Object_last_modified, bucket.Storage_types, bucket.Cost)
 }
 
 func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
