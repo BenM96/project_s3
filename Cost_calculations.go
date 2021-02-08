@@ -6,13 +6,12 @@ import (
 )
 
 
-func Get_bucket_cost (total_size_of_files int64) float64{
+func Get_bucket_cost () float64{
 	//retuns the estimated cost of a bucket.
-	//TODO this is currently extramly crude, need to make this more sufistcated and use the cost explorer API
+	//TODO Create this function
+	//All methods considard to create this function either:
+	//	1. Assumed some form of infrastuture already inplace (e.g. tagging, Cost Management)
+	//	2. Crude to the point of not being of any particular value
 
-	//convert total size of files to GB as it is what aws uses for pricing
-	total_size_of_files_GB := byte_conversion(total_size_of_files, "GB")	
-	cost := float64(total_size_of_files_GB) * 0.024
-
-	return cost
+	return -1
 }

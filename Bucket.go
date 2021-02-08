@@ -49,5 +49,5 @@ func Complete_Bucket (bucket *Bucket, region string, client *s3.Client){
     bucket.Number_of_files, bucket.Total_size_of_files, bucket.Object_last_modified, bucket.Storage_types = Get_file_data(bucket.Region, bucket.Name, client)
 
     //get the cost of the bucket
-    bucket.Cost = Get_bucket_cost(bucket.Total_size_of_files)
+    bucket.Cost = Get_bucket_cost()
 }
