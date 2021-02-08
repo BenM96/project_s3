@@ -8,7 +8,7 @@ import(
 	"sync"
 	"time"
 	"flag"
-	//"fmt"
+	"fmt"
 )
 
 func main() {
@@ -55,14 +55,13 @@ func Create_and_display_bucket(name *string, creation_date *time.Time, client *s
 
 	//when this fuction exits let the main function know to stop it wainting
 	defer wait_group.Done()
-
-
+	
 	//if the name doesn't contain the name_filter_string end the function here
 	if !Name_filter(*name, run_options["name_filter_string"]){return}
-
+	
 	//Gather the rest of the bucket's information
 	complete_bucket := Create_bucket(name, creation_date, run_options["region"], client)
-
+	
 	//Filters
 	if !Storage_type_filter(complete_bucket.Storage_types, run_options["storage_type_filter_string"]){return}
 	if !Region_filter(complete_bucket.Region, run_options["region_filter_string"]){return}

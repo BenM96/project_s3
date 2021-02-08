@@ -36,7 +36,7 @@ func Create_bucket(name *string, creation_date *time.Time, region string, client
 
 func Print_bucket_headder(byte_display_option string){
     //Prints the headder for the list of buckets
-    fmt.Printf("Name:Creation date:Number of files:Total size of files(%v):Object last modified:Storage types:Cost(US$/Month)\n")
+    fmt.Printf("Name:Creation date:Number of files:Total size of files(%v):Object last modified:Storage types:Cost(US$/Month)\n", byte_display_option)
 }
 
 func Print_bucket(bucket *Bucket, byte_display_option string) {
