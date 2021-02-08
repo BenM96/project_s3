@@ -1,5 +1,4 @@
 //This file contains go tests for the functions found in Filters.go
-
 package main
 
 import ( 
