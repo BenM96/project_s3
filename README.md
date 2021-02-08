@@ -6,7 +6,7 @@ To install the tool download the binary s3.exe. This can be done by clicking thi
 
 ## Prerequisites 
 
-The script needs access to aws credentials in order to run. The most common way to do this is by using the ~/.aws/credentials folder. For more information on this click [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+The script needs access to aws credentials in order to run. The most common way to do this is by using the ~/.aws/credentials (or C:\Users\<username>\.aws\credentials for windows) folder (or . For more information on this click [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 
 ## running the tool
 
