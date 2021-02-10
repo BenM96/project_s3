@@ -2,15 +2,15 @@
 
 ## Installation:
 
-To install the tool download the binary s3.exe. This can be done by clicking this link https://raw.githubusercontent.com/BenM96/project_s3/master/s3.exe
+To install the tool download the binary s3.exe. This can be done by clicking this link [here](https://raw.githubusercontent.com/BenM96/project_s3/master/s3.exe)
 
 ## Prerequisites 
 
-The script needs access to aws credentials in order to run. The most common way to do this is by using the ~/.aws/credentials folder. For more information on this click [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+The script needs access to aws credentials in order to run. The most common way to do this is by using the ~/.aws/credentials (C:\Users\<username>\.aws\credentials for windows) folder. For more information on this click [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 
-## running the tool
+## Running the tool
 
-To run the tool you can simply run s3.exefrom windows command prompt or ./s3.exe on linux
+To run the tool you can simply run s3.exe from windows command prompt or ./s3.exe on linux
 
 To see the options avalable run s3.exe --help
 
@@ -48,3 +48,7 @@ Contains untility functions that dont belong anywhere else
 
 The compiled binary of the go files
 
+
+# Please note
+
+This is not a finnished product, there are still many improvments that can be made. However there is enough content here to show my coding style and prove my compitance (hopefully).
